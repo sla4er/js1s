@@ -1,0 +1,15 @@
+.glyphicon-refresh-animate {
+    -animation: spin 1.7s infinite linear;
+    -webkit-animation: spin2 1.7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(00deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(90deg);}
+    to { transform: scale(1) rotate(270deg);}
+}
+

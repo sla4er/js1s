@@ -1,0 +1,9 @@
+{"k":"0000000078","o":"0000000068","v":"001"}
+{"_id":2,"_uid":2,"_dt":1442999732723,"_s":"7a84cfaebcdb8b1cc587210aaeea9539"}
+{"username":"admin","password":"admin","_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000075","v":"001"}
+{"_id":2,"_uid":2,"_dt":1443002166620,"_s":"f32c6f8935bbe353ca5500664419bdc3"}
+{"session":"VwnOvWoqYCHlli6RVFuH08ppXBIiCuOA","_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000068","v":"001"}
+{"_id":3,"_uid":3,"_dt":1443002330829,"_s":"5c9a1aa050bc75394e20ae2a93b98a13"}
+{"username":"admin","password":"admin","_id":{"$wrap":"$oid","v":3}}
