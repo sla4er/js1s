@@ -1,6 +1,6 @@
 var Engine = require("tingodb")();
 assert = require('assert');
-var db = new Engine.Db('/node/http/db/', {});
+var db = new Engine.Db('./db/', {});
 
 
 var collectionUsers = db.collection("ls_users");
