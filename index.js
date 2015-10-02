@@ -1,4 +1,4 @@
-
+var conf = require('./conf/current.js');
 
 var express = require('express')
 var app = express()
@@ -22,47 +22,37 @@ app.use('/img', express.static(__dirname + '/img'));
 
 app.set('view engine', 'jade');
 
-
-var Datastore = require('nedb')
-  , users = new Datastore({ filename: 'db/users' });
-
-
-var Users = require("./models/users");
-console.log(Users);
-
-users.loadDatabase(function (err) {    // Callback is optional
-  // Now commands will be executed
-});
-
 app.get('/', function (req, res) {
-  res.render('index', { title: 'Main page', message: 'Hello, it\'s main page ('+req.sessionID+')!'});
+  var user = conf.users.userbysession(req.sessionID);
+  if (!user) res.redirect('/login');
+  res.render('index', { title: 'Main page', message: 'Hello, '+conf.users.userbysession(req.sessionID)+'!', user: conf.users.userbysession(req.sessionID)});
 })
 
 app.get('/config', function (req, res) {
-  res.render('config', { title: 'Config page', message: 'Config page !'});
+  res.render('config', { title: 'Config page', message: 'Config page !', user: conf.users.userbysession(req.sessionID)});
 })
 
 app.get('/work', function (req, res) {
-  res.render('work', { title: 'Work page', message: 'Work page !'});
+  res.render('work', { title: 'Work page', message: 'Work page !', user: conf.users.userbysession(req.sessionID)});
 })
 
-var sSem = true;
+app.get('/logout', function (req, res) {
+  var user = conf.users.userbysession(req.sessionID);
+  if (user) conf.users.logout(req.sessionID);
+  res.redirect('/');
+})
+
 app.route('/login')
 	.get( function (req, res) {
-  		res.render('login', { title: 'Login page', message: 'Login page !'});
+    var user = conf.users.userbysession(req.sessionID);
+  		res.render('login', { title: 'Login page', message: 'Login page !', user: user});
 	})
-	.post( function (req, res) {
-		console.log(req.body);
-			Users.findUserByName( req.body.username, function(err, doc){
-			console.log('finded '+doc+' '+req.sessionID+' ');
-  			if (doc && doc.password == req.body.password) {
-  				//Users.updateSessionByNumeUser( doc.username, req.sessionID );
-  				res.send('ok');
-  			}else{
-  				res.send('failed');
-  			}
-  		});
-
+	.post( function (req, res){
+  			 if (conf.users.validuser(req.body.username, req.body.password, req.sessionID)) {
+  			 	res.send('ok');
+  			 }else{
+  			 	res.send('failed');
+  			 }
 	});
 
 

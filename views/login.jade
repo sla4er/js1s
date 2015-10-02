@@ -1,27 +1,28 @@
 include ./head.jade
 
-form
- div.row
-  div(class='col-md-10 col-md-offset-2')
-   h3 Вход пользователя
- div.row(class="form-group")
-  div(class='col-md-1 col-md-offset-2')
-   label.control-label Имя:
-  div(class='col-md-4 col-md-offset-1')
-   input(class="form-control" name="username" id="username" ng-model="username") 
-  div(class='col-md-4')
- div.row(class="form-group")
-  div(class='col-md-1 col-md-offset-2')
-   label.control-label Пароль:
-  div(class='col-md-4 col-md-offset-1')
-   input(class="form-control" name="password" type="password" id="password" ng-model="password")
-  div(class='col-md-4')
- div.row(class="form-group")
-  div(class='col-md-4 col-md-offset-4')
-   input(type="checkbox" name="register") 
-   label Зарегистрировать
-  div(class='col-md-4')
- div.row(class="form-group")
-  div(class='col-md-4 col-md-offset-4 text-right')
-   button(class="btn btn-primary btn-sm" ng-click="loginfn()") Войти
-  div(class='col-md-4')
+
+if user
+ h1!= user.login
+else
+ form
+  div.row
+   div(class='col-md-10 col-md-offset-2')
+    h3 Вход пользователя
+  div.row(class="form-group")
+   div(class='col-md-1 col-md-offset-2')
+    label.control-label Имя:
+   div(class='col-md-4 col-md-offset-1')
+    input(class="form-control" name="username" id="username" ng-model="username") 
+   div(class='col-md-4')
+  div.row(class="form-group")
+   div(class='col-md-1 col-md-offset-2')
+    label.control-label Пароль:
+   div(class='col-md-4 col-md-offset-1')
+    input(class="form-control" name="password" type="password" id="password" ng-model="password")
+   div(class='col-md-4')
+  div.row(class="form-group")
+   div(class='col-md-3 col-md-offset-4')
+    input(type="checkbox" name="register") 
+    label Зарегистрировать
+   div(class='col-md-5')
+    button(class="btn btn-primary btn-sm" ng-click="loginfn()") Войти
