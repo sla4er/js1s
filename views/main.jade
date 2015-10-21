@@ -1,0 +1,3 @@
+if user
+ include ./head.jade
+ selectfromlist(model="model" variable="model.sfilial"  datasource="filial.id as filial.name for filial in model.filials")

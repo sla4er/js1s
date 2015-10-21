@@ -1,4 +1,4 @@
-var conf = require('./conf/current.js');
+
 
 var express = require('express')
 var app = express()
@@ -22,19 +22,24 @@ app.use('/img', express.static(__dirname + '/img'));
 
 app.set('view engine', 'jade');
 
+var conf = require('./conf/current.js');
+
 app.get('/', function (req, res) {
   var user = conf.users.userbysession(req.sessionID);
-  if (!user) res.redirect('/login');
-  res.render('index', { title: 'Main page', message: 'Hello, '+conf.users.userbysession(req.sessionID)+'!', user: conf.users.userbysession(req.sessionID)});
+  if (!user){      
+    res.render('login', { title: 'Login page', 
+                            user: user, 
+                            scriptinjection: '/js/login.js'});
+  }else{
+    res.render('main', { title: 'Main page', 
+                          user: user,
+                          scriptinjection: '/js/main.js'
+                        });
+  }
 })
 
-app.get('/config', function (req, res) {
-  res.render('config', { title: 'Config page', message: 'Config page !', user: conf.users.userbysession(req.sessionID)});
-})
-
-app.get('/work', function (req, res) {
-  res.render('work', { title: 'Work page', message: 'Work page !', user: conf.users.userbysession(req.sessionID)});
-})
+//***********************************************************
+//**** LOGIN-LOGOUT
 
 app.get('/logout', function (req, res) {
   var user = conf.users.userbysession(req.sessionID);
@@ -43,10 +48,6 @@ app.get('/logout', function (req, res) {
 })
 
 app.route('/login')
-	.get( function (req, res) {
-    var user = conf.users.userbysession(req.sessionID);
-  		res.render('login', { title: 'Login page', message: 'Login page !', user: user});
-	})
 	.post( function (req, res){
   			 if (conf.users.validuser(req.body.username, req.body.password, req.sessionID)) {
   			 	res.send('ok');
@@ -54,6 +55,7 @@ app.route('/login')
   			 	res.send('failed');
   			 }
 	});
+//***********************************************************
 
 
 var server = app.listen(3000, function () {

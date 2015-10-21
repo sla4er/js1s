@@ -4,10 +4,16 @@ include ./head.jade
 if user
  h1!= user.login
 else
- form
+ form(ng-controller="LoginCtrl")
   div.row
    div(class='col-md-10 col-md-offset-2')
     h3 Вход пользователя
+  div.row(class="form-group")
+   div(class='col-md-4 col-md-offset-4')
+    selectfromlist(model="model" variable="model.sfilial" datasource="filial.id as filial.name for filial in model.filials")
+   div(class='col-md-1')
+    label.control-label {{model.sfilial}}
+   div(class='col-md-3')
   div.row(class="form-group")
    div(class='col-md-1 col-md-offset-2')
     label.control-label Имя:

@@ -1,5 +1,5 @@
     angular.module("gk")
-    .controller('mct', function NameCtrl($scope, $http, $timeout){
+    .controller('LoginCtrl', function LoginCtrl($scope, $http, $timeout){
     	$scope.wait = false;
     	$scope.username = '';
 
